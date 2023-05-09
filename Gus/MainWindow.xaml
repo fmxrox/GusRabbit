@@ -1,0 +1,22 @@
+﻿<Window x:Class="Gus.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Gus.ViewModels"
+        xmlns:crv="clr-namespace:Gus.Converter"
+        Title="My App" Height="350" Width="525">
+    <Window.Resources>
+        <crv:AreaToColorConverter x:Key="AreaToColorConverter" />
+    </Window.Resources>
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
+    <Grid>
+        <DataGrid ItemsSource="{Binding Areas}" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="{Binding Path=., Converter={StaticResource AreaToColorConverter}}" />
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+    </Grid>
+</Window>
